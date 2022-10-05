@@ -1,0 +1,16 @@
+TO DO:
+  [ ] - green leaves, brown trunk (1 pt)
+  [ ] - music mp3 (1 pt)
+    https://www.youtube.com/watch?v=2Fqh-8XqK0M
+  [ ] - custom buzzer song (2 pt)
+
+  [ ] - random lights (2 pt)
+  [ ] - tree moves (2 pt)
+
+--------------------------------------------------
+    y ---->
+ x
+ |
+ |
+\ /
+ Y

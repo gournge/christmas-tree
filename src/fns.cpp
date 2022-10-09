@@ -3,9 +3,10 @@
 #include <string>
 #include "../include/fns.hpp"
 #include <windows.h>
-#pragma comment(lib, "Winmm.lib")
-
-
+#include <mmsystem.h>
+#include <cstdlib>
+#include <ctime>
+#pragma comment(lib, "winmm.lib")
 using namespace std;
 
 void render(vector<vector<int>>& data) {
@@ -41,6 +42,7 @@ void clearscreen(vector<vector<int>>& data) {
   }
 }
 
+
 void row(vector<vector<int>>& data, int x, int y, int fill, int type) {
   for (int i = 0; i < fill; i++) { data[x][y+i] = type; }
 }
@@ -52,16 +54,41 @@ void triangle(vector<vector<int>>& data, int x, int y, int size, int cut) {
 void christmas_tree(vector<vector<int>>& data, const int size, const int width, int shift) {
   int y = data[0].size()/2; int x = 2;
   data[3][y+shift*(size-1)] = 1;
-  for (int dx = 1; dx < size; dx++) { x += dx; triangle(data, x, y+shift*(size-dx), dx+2, dx); }
-  x = 15; while (data[x][y]) x++;
+  for (int dx = 1; dx < size; dx++) {
+    x += dx;
+    triangle(data, x, y+shift*(size-dx), dx+2, dx);
+  }
+  x = data.size()-1; while (data[x][y]) x--;
   for (int j = 0; j < size*2/5; j++) row(data, x+j, y-(size*3/8), size*3/4, 2);
 }
 
-void play_song() {
+void lights(vector<vector<int>>& data) {
 
-mciSendString("play mp3 repeat", NULL, 0, NULL);
-
+  for (int x = 0; x < data.size(); x++) {
+    for (int y = 0; y < data[0].size(); y++) {
+      srand(time(NULL)+x*y);
+      int c = rand()%5, color = rand()%3;
+      if (c == 0) data[x][y] = color+3;
+    }
+  }
 }
 
+
+void play_song() {
+  // to uncomment this line add copper.wav to src and uncomment the second next
+  // PlaySound("copper.wav", NULL, SND_FILENAME | SND_RESOURCE );
+  PlaySound( R"(C:\Users\filip\OneDrive\Dokumenty\Pulpit\"Filip - Laptop"\Liceum\IB\"Comp sci"\choinka\resource\copper.wav)", NULL, SND_FILENAME | SND_RESOURCE );
+
+ }
+
 void play_buzzer_song(int moment) {
+  const bool song[] = { 1, 1, 1, 0, 0, 0, // 40 units long
+                        1, 1, 1, 0, 0, 0,
+                        1, 1, 1, 1, 1, 0,
+                        0, 0, 1, 1, 1, 0,
+                        1, 1, 1, 0, 1, 1,
+                        0, 1, 1, 1, 0, 0,
+                        0, 0, 0, 0}
+  const int len = 40;
+  if (song[moment%len]) cout << "\a";
 }

@@ -88,7 +88,7 @@ void play_buzzer_song(int moment) {
                         0, 0, 1, 1, 1, 0,
                         1, 1, 1, 0, 1, 1,
                         0, 1, 1, 1, 0, 0,
-                        0, 0, 0, 0}
+                        0, 0, 0, 0};
   const int len = 40;
   if (song[moment%len]) cout << "\a";
 }
